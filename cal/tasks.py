@@ -30,7 +30,6 @@ def check_send_email():
     return 'Done'
 
 
-
 @ shared_task
 def list_of_holidays():
     Holidays.objects.all().delete()
