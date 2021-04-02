@@ -28,7 +28,7 @@ class ReminderTime(models.Model):
 class CreateEvent(models.Model):
     chose_time = CHOICE_TIME
     user_event = models.ForeignKey(ProfileUser, on_delete=models.CASCADE, related_name="user",
-                                   verbose_name="автор события")
+                                   verbose_name="автор  события")
     title = models.CharField(max_length=100, verbose_name="название события")
 
     date_start = models.DateTimeField(verbose_name="Время начала события")

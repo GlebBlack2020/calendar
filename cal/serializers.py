@@ -10,7 +10,7 @@ from .models import ProfileUser, CreateEvent, Holidays
 User = get_user_model()
 
 
-class UserSerializer(ModelSerializer):
+class  UserSerializer(ModelSerializer):
     class Meta:
         model = ProfileUser
 

@@ -11,10 +11,10 @@ class Command(BaseCommand):
         for country in tqdm(Country.objects.all()):
             url = f"https://www.officeholidays.com/ics/{country.country}"
             try:
-                cal = Calendar(get(url).text)
+                cal1 = Calendar(get(url).text)
             except:
                 pass
-            for holiday in cal.events:
+            for holiday in cal1.events:
                 try:
                     Holidays.objects.create(title=holiday.name,
                                             holiday_start=holiday.begin.format("YYYY-MM-DD HH:mm:ss"),
