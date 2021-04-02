@@ -38,7 +38,7 @@ class Login(GenericAPIView):
         if user is not None:
             if email == ProfileUser.objects.filter(username=login)[0].email:
                 token, flag = Token.objects.get_or_create(user=user)
-                send_mail("token for calendar_djangot", f"token: {token.__str__()}",
+                send_mail("token for calendar_django", f"token: {token.__str__()}",
                           "glebblack2016@gmail.com", [request.data["email"]])
                 return Response("Your token to your e-mail", status=status.HTTP_200_OK)
             return Response('the mail is not correct')
