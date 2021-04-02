@@ -7,28 +7,28 @@ from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView, ListAPIView, ListCreateAPIView
-from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView
 
 from .models import ProfileUser, Holidays, CreateEvent
-from .serializers import RegisterSerializers, EventSerializers, LoginSerializers, HolidaysSerializers
-from .serializers import ListEventSerializers
+from .serializers import RegisterSerializer, EventSerializer, LoginSerializer, HolidaysSerializer
+from .serializers import ListEventSerializer
 
 
 class Register(GenericAPIView):
-    serializer_class = RegisterSerializers
+    serializer_class = RegisterSerializer
 
     def post(self, request):
         if not ProfileUser.objects.filter(username=request.data['username']):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response({"Your Userprofile is registered"}, status=status.HTTP_200_OK)
-        return Response("this Userprofile already exist")
+            return Response({"Your profile is registered"}, status=status.HTTP_200_OK)
+        return Response("this profile is already exist")
 
 
 class Login(GenericAPIView):
-    serializer_class = LoginSerializers
+    serializer_class = LoginSerializer
 
     def post(self, request):
         login = request.data.get('username')
@@ -42,13 +42,13 @@ class Login(GenericAPIView):
                           "glebblack2016@gmail.com", [request.data["email"]])
                 return Response("Your token to your e-mail", status=status.HTTP_200_OK)
             return Response('the mail is not correct')
-        return Response("this Userprofile does not exist")
+        return Response("this profile does not exist")
 
 
 class CreateEvent(ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    serializer_class = EventSerializers
+    serializer_class = EventSerializer
     queryset = CreateEvent.objects.all()
 
     def perform_create(self, serializer):
@@ -57,7 +57,7 @@ class CreateEvent(ListCreateAPIView):
 
 class UserHolidays(ListAPIView):
     filter_backends = [SearchFilter]
-    serializer_class = HolidaysSerializers
+    serializer_class = HolidaysSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
@@ -83,5 +83,5 @@ class UserEvent(APIView):
             event = event.filter(date_start__year=data[0],
                                  date_start__month=data[1],
                                  date_start__day=data[2])
-        serializer = ListEventSerializers(event.order_by("date_start"), many=True)
+        serializer = ListEventSerializer(event.order_by("date_start"), many=True)
         return Response(serializer.data)

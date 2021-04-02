@@ -21,7 +21,7 @@ class UserSerializer(ModelSerializer):
         fields = ['username', 'country', 'email', 'password']
 
 
-class RegisterSerializers(ModelSerializer):
+class RegisterSerializer(ModelSerializer):
     class Meta:
         email = {'required': True}
         model = ProfileUser
@@ -36,28 +36,27 @@ class RegisterSerializers(ModelSerializer):
         return user
 
 
-class LoginSerializers(ModelSerializer):
+class LoginSerializer(ModelSerializer):
     class Meta:
         model = ProfileUser
         email = {'required': True}
         fields = ['username', 'email', 'password']
 
 
-class EventSerializers(ModelSerializer):
+class EventSerializer(ModelSerializer):
     class Meta:
         model = CreateEvent
         fields = ("title", "date_start", "date_finish", "reminder", 'notification')
 
 
 
-
-class HolidaysSerializers(ModelSerializer):
+class HolidaysSerializer(ModelSerializer):
     class Meta:
         model = Holidays
         fields = ('title', 'holiday_start', 'holiday_finish')
 
 
-class ListEventSerializers(ModelSerializer):
+class ListEventSerializer(ModelSerializer):
     class Meta:
         model = CreateEvent
         fields = ['title', "date_start"]
