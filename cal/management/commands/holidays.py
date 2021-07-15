@@ -1,8 +1,7 @@
 from django.core.management.base import BaseCommand
 from ics import Calendar
 from requests import get
-from .models import Country, Holidays
-
+from cal.models import Country, Holidays
 from tqdm import tqdm
 
 

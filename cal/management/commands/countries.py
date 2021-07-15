@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from django.core.management.base import BaseCommand
 import requests
 from tqdm import tqdm
-from .models import Country
+from cal.models import Country
 
 
 class Command(BaseCommand):
@@ -13,4 +13,4 @@ class Command(BaseCommand):
         arr = [[j.text.strip() for j in i.find_all("a")] for i in soup.find_all("div", {"class": "four omega columns"})]
         arrs = arr[0] + arr[1] + arr[2]
         for country in tqdm(arrs):
-            Country.objects.create(name=country)
+            Country.objects.create(country=country)

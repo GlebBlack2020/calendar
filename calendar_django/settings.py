@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-from datetime import timedelta
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -118,36 +118,25 @@ USE_L10N = True
 USE_TZ = True
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST_USER = 'glebblack2016@gmail.com'
+EMAIL_HOST_USER = 'glebblack2020@gmail.com'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = 'password'
+EMAIL_HOST_PASSWORD = 'mfjhzkncapvibeck'
 
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://cache://127.0.0.1:6379/1'
-    }
-}
-
-CHOICE_TIME = [
-    (timedelta(hours=1), "За час",),
-    (timedelta(hours=2), "За 2 часа"),
-    (timedelta(hours=4), "За 4 часа"),
-    (timedelta(hours=24), "За день"),
-    (timedelta(hours=168), "За неделю"),
-    ]
 
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
-CELERY_BROKER_URL = 'redis://cache:6379'
-CELERY_RESULT_BACKEND = 'redis://cache:6379'
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
 
 
 CELERY_BEAT_SCHEDULE = {
@@ -163,5 +152,8 @@ CELERY_BEAT_SCHEDULE = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
+
 AUTH_USER_MODEL = 'cal.ProfileUser'

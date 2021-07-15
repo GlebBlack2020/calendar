@@ -39,13 +39,13 @@ class Login(GenericAPIView):
             if email == ProfileUser.objects.filter(username=login)[0].email:
                 token, flag = Token.objects.get_or_create(user=user)
                 send_mail("token for calendar_django", f"token: {token.__str__()}",
-                          "glebblack2016@gmail.com", [request.data["email"]])
+                          "glebblack2020@gmail.com", [request.data["email"]])
                 return Response("Your token to your e-mail", status=status.HTTP_200_OK)
             return Response('the mail is not correct')
         return Response("this profile does not exist")
 
 
-class CreateEvent(ListCreateAPIView):
+class CreateEvents(ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = EventSerializer

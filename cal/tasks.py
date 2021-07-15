@@ -18,13 +18,13 @@ def check_send_email():
             if len(list_time[0]) == 1:
                 time_delta = timedelta(hours=int(list_time[0]))
             else:
-                list_dey = list_time[0].split(' ')
-                time_delta = timedelta(days=int(list_dey[0]))
+                list_day = list_time[0].split(' ')
+                time_delta = timedelta(days=int(list_day[0]))
             if event.date_start - time_delta < now_time + timedelta(hours=3):
                 email = event.user_event.email
                 send_mail("It's your Planned event",
                           f"Event:{event.title}, Time:{event.date_start}",
-                          "glebblack2016@gmail.com", [email])
+                          "glebblack2020@gmail.com", [email])
                 event.notification = False
                 event.save()
     return 'Done'

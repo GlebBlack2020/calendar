@@ -4,21 +4,12 @@ from rest_framework.authtoken.models import Token
 from rest_framework.serializers import ModelSerializer
 from .models import ProfileUser, CreateEvent, Holidays
 
-# from app_calendar.models import User
 
-
-User = get_user_model()
-
-
-class  UserSerializer(ModelSerializer):
+class UserSerialiser(ModelSerializer):
     class Meta:
         model = ProfileUser
+        fields = ('id', 'username', 'email', 'country')
 
-    user = None
-
-    class Meta:
-        model = User
-        fields = ['username', 'country', 'email', 'password']
 
 
 class RegisterSerializer(ModelSerializer):
@@ -28,11 +19,11 @@ class RegisterSerializer(ModelSerializer):
         fields = ('id', 'username', 'email', 'password', 'country')
         extra_kwargs = {'password': {'write_only': True}, }
 
-    def create(self, validated_date):
-        user = ProfileUser.objects.create_user(validated_date['username'],
-                                               email=validated_date['email'],
-                                               password=validated_date['password'],
-                                               country=validated_date['country'],)
+    def create(self, validated_data):
+        user = ProfileUser.objects.create_user(validated_data['username'],
+                                               email=validated_data['email'],
+                                               password=validated_data['password'],
+                                               country=validated_data['country'],)
         return user
 
 
